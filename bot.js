@@ -23,11 +23,11 @@ function gotMessage(msg) {
     var channelID = msg.channel.id;
     var guild = msg.guild;
     if(channelID == ids){
-        if (!msg.content.startsWith(':bb') || msg.author.bot){
-            if(msg.content == ':ping'){
+        if (!msg.content.startsWith(';bb') || msg.author.bot){
+            if(msg.content == ';ping'){
                 msg.channel.send('I am still active')
                 console.log('Working test')
-            }else if(msg.content == ':help'){
+            }else if(msg.content == ';help'){
                 msg.channel.send({embed: {
                     color: 3447003,
                     author: {
@@ -36,31 +36,29 @@ function gotMessage(msg) {
                     title: "Help Panel for Pre Ban Bot",
                     
                     fields: [{
-                        name: ":help",
+                        name: ";help",
                         value: "Please tell me you didn't open this panel for this"
                       },
                       {
-                        name: ":ping",
+                        name: ";ping",
                         value: "Simple ping to let you know if the bot is still alive"
                       },
                       {
-                        name: ":bb add id",
+                        name: ";bb add id",
                         value: "Will ban the given id"
                       },
                       {
-                        name: ":bb remove id",
+                        name: ";bb remove id",
                         value: "Will unban the given id"
                       }
                     ],
                     timestamp: new Date(),
                   }
                 });
-            }else if (msg.content == ':ee'){
+            }else if (msg.content == ';ee'){
                 msg.channel.send('You Found and easter egg congrats!');
-            }else if(msg.content == ':list'){
-                guild.fetchBans().then(banned => {});
-                msg.channel.send(banned)
-                
+            }else{
+                return; 
             }
         } else {
             const args = msg.content.slice(3).trim().split(' ');
@@ -71,7 +69,7 @@ function gotMessage(msg) {
             }else if(feedback == 'removed'){
                 msg.channel.send('Id removed from the list');
             }else{
-                msg.channel.send('Not a vaild Syntax for *!bb*')
+                msg.channel.send('Not a vaild Syntax for *;bb*')
             }
         }
     }else{
