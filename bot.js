@@ -9,6 +9,7 @@ client.login(process.env.TOKEN);
 //Tells me when the bot is ready and active
 var ids = process.env.MODCHANNEL //put the mod bot spam channel id in the .env file
 var od = process.env.LEFTCHANNEL //put the mod #left channel
+var memeid = process.env.MEMECHANNEL //put the meme channel id here
 
 client.on("ready", readyDiscord);
 
@@ -16,7 +17,7 @@ function readyDiscord() {
     console.log('Connected to Discord API')
 }
 
-client.on('message', gotMessage);
+client.on('message', gotMessage, checkMemes);
 
 function gotMessage(msg) {
     console.log(msg.content);
@@ -102,3 +103,12 @@ client.on('guildMemberRemove', function(member){
     member = member.user.tag;
     client.channels.cache.get(od).send(member + ' has left!');
 });
+
+function checkMemes(){
+    console.log(msg.content);
+    var channelID = msg.channel.id;
+    if (channelID == memeid){
+        if(msg.attachments.size > 0) return; 
+        msg.delete(1000);
+    }
+}
