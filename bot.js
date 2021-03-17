@@ -17,7 +17,8 @@ function readyDiscord() {
     console.log('Connected to Discord API')
 }
 
-client.on('message', gotMessage, checkMemes);
+client.on('message', gotMessage);
+
 
 function gotMessage(msg) {
     console.log(msg.content);
@@ -73,7 +74,15 @@ function gotMessage(msg) {
                 msg.channel.send('Not a vaild Syntax for *;bb*')
             }
         }
-    }else{
+    }else if(channelID == memeid){
+        if(msg.attachments.size > 0){
+            console.log('Testing meme');
+            return;
+        }else{
+            console.log('jksdaf');
+            msg.delete();
+        }
+    }else {
         return;
     }
 }
@@ -104,11 +113,3 @@ client.on('guildMemberRemove', function(member){
     client.channels.cache.get(od).send(member + ' has left!');
 });
 
-function checkMemes(){
-    console.log(msg.content);
-    var channelID = msg.channel.id;
-    if (channelID == memeid){
-        if(msg.attachments.size > 0) return; 
-        msg.delete(1000);
-    }
-}
